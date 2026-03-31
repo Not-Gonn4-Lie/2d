@@ -1,0 +1,75 @@
+#practical_03
+
+#include <iostream>
+using namespace std;
+
+void permute(int a[], int l, int r) {
+    if(l == r) {
+        for(int i = 0; i <= r; i++)
+            cout << a[i] << " ";
+        cout << endl;
+        return;
+    }
+
+    for(int i = l; i <= r; i++) {
+        // swap
+        int temp = a[l];
+        a[l] = a[i];
+        a[i] = temp;
+
+        permute(a, l + 1, r);
+
+        // backtrack (swap back)
+        temp = a[l];
+        a[l] = a[i];
+        a[i] = temp;
+    }
+}
+
+int main() {
+    int n;
+    cout << "Enter number of digits: ";
+    cin >> n;
+
+    int a[10];
+    cout << "Enter digits:\n";
+    for(int i = 0; i < n; i++)
+        cin >> a[i];
+
+    cout << "\nPermutations without repetition:\n";
+    permute(a, 0, n - 1);
+
+    return 0;
+}
+#include <iostream>
+using namespace std;
+
+void permuteWithRep(int a[], int n, int k, int result[]) {
+    if(k == n) {
+        for(int i = 0; i < n; i++)
+            cout << result[i] << " ";
+        cout << endl;
+        return;
+    }
+
+    for(int i = 0; i < n; i++) {
+        result[k] = a[i];
+        permuteWithRep(a, n, k + 1, result);
+    }
+}
+
+int main() {
+    int n;
+    cout << "Enter number of digits: ";
+    cin >> n;
+
+    int a[10], result[10];
+    cout << "Enter digits:\n";
+    for(int i = 0; i < n; i++)
+        cin >> a[i];
+
+    cout << "\nPermutations with repetition:\n";
+    permuteWithRep(a, n, 0, result);
+
+    return 0;
+}
